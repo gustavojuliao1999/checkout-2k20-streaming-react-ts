@@ -1,0 +1,41 @@
+.main-header-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 40px;
+    background-color: #1B1B1B;
+    box-shadow: 0 4px 4px 0 #6200EA;
+    z-index: 10;
+}
+
+.main-header-container .main-logo {
+    width: 220px;
+}
+
+.main-header-container a {
+    font-family: "stolzl-regular";
+    color: #ffffff;
+    border: 2px solid #628199;
+    text-decoration: none;
+    height: fit-content;
+    padding: 10px 30px;
+    border-radius: 20px;
+    transition: ease-in-out .3s all;
+}
+
+.main-header-container a:hover {
+    background-color: #628199;
+}
+
+@media (max-width: 768px) {
+    .main-header-container {
+        justify-content: space-between;
+    }
+
+    .main-header-container .main-logo {
+        width: 150px;
+    }
+
+    .main-header-container a {
+        font-size: 12px;
+    }
+}

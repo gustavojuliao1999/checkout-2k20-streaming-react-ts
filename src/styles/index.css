@@ -1,0 +1,50 @@
+body, * {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #141414;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@font-face {
+    font-family: "stolzl-bold";
+    src: url("../fonts/stolzl/stolzl_bold.otf");
+}
+
+@font-face {
+    font-family: "stolzl-book";
+    src: url("../fonts/stolzl/stolzl_book.otf");
+}
+
+@font-face {
+    font-family: "stolzl-light";
+    src: url("../fonts/stolzl/stolzl_light.otf");
+}
+
+@font-face {
+    font-family: "stolzl-medium";
+    src: url("../fonts/stolzl/stolzl_medium.otf");
+}
+
+@font-face {
+    font-family: "stolzl-regular";
+    src: url("../fonts/stolzl/stolzl_regular.otf");
+}
+
+@font-face {
+    font-family: "stolzl-thin";
+    src: url("../fonts/stolzl/stolzl_thin.otf");
+}
+
+.hidden {
+    display: none !important;
+}
