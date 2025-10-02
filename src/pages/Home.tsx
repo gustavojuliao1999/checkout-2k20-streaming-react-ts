@@ -130,7 +130,7 @@ const Home = () => {
 
                 <div className="form-group">
                     <span>CPF</span>
-                    <input type="text" name="docId" id="docIdEl" placeholder="123.456.789-00" required value={docId} onChange={handleDocIdChange} maxLength={14}/>
+                    <input type="text" name="docId" id="docIdEl" placeholder="000.000.000-00" required value={docId} onChange={handleDocIdChange} maxLength={14}/>
                     <small className="error-message hidden">O cpf deve ter 11 dígitos</small>
                 </div>
                 <div className="form-group">
@@ -155,25 +155,25 @@ const Home = () => {
                 <div className="form-group split">
                     <div>
                         <span>ENDEREÇO COMPLETO</span>
-                        <input type="text" name="address" id="addressEl" placeholder="Rua A" required value={address} onChange={handleAddressChange}/>
+                        <input type="text" name="address" id="addressEl" placeholder="Digite a rua" required value={address} onChange={handleAddressChange}/>
                     </div>
                     <div>
                         <span>NÚMERO</span>
-                        <input type="text" name="addressNumber" id="addressNumberEl" placeholder="80" required value={addressNumber} onChange={handleAddressNumberChange}/>
+                        <input type="text" name="addressNumber" id="addressNumberEl" placeholder="0" required value={addressNumber} onChange={handleAddressNumberChange}/>
                     </div>
                 </div>
                 <div className="form-group">
                     <span>CIDADE</span>
-                    <input type="text" name="city" id="cityEl" placeholder="Neópolis" required onChange={handleCityChange} value={city}/>
+                    <input type="text" name="city" id="cityEl" placeholder="Digite a cidade" required onChange={handleCityChange} value={city}/>
                 </div>
                 <div className="form-group split">
                     <div>
                         <span>BAIRRO</span>
-                        <input type="text" name="hood" id="hoodEl" placeholder="Centro" required onChange={handleHoodChange} value={hood}/>
+                        <input type="text" name="hood" id="hoodEl" placeholder="Digite o bairro" required onChange={handleHoodChange} value={hood}/>
                     </div>
                     <div>
                         <span>CEP</span>
-                        <input type="text" name="postalCode" id="postalCodeEl" placeholder="49.980-000" required maxLength={10} onChange={handlePostalCodeChange} value={postalCode}/>
+                        <input type="text" name="postalCode" id="postalCodeEl" placeholder="00.000-000" required maxLength={10} onChange={handlePostalCodeChange} value={postalCode}/>
                     </div>
                 </div>
                 <div className="form-group">
