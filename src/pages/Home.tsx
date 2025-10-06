@@ -3,6 +3,9 @@ import { ICookieData, setCookie } from "../controllers/cookies.controller";
 
 import Header from "../components/Header";
 
+import fxRightImg from "../img/fx-right.svg";
+import fxLeftImg from "../img/fx-left.svg";
+
 import "../styles/home.css";
 
 type PersonalData = {
@@ -120,8 +123,6 @@ const Home = () => {
         }
     }
 
-
-
     return (
         <React.Fragment>
             <Header/>
@@ -198,6 +199,9 @@ const Home = () => {
                 <span>Já tem uma conta? <a href="#">Entre com sua conta aqui</a></span>
                 <span>Você tem um código? <a href="#">Valide aqui aqui</a></span>
             </div>
+
+            <img src={fxRightImg} className="fx-right-img" alt="decoration" />
+            <img src={fxLeftImg} className="fx-left-img" alt="decoration" />
         </React.Fragment>
     )
 }

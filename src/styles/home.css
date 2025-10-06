@@ -5,6 +5,7 @@
     width: 800px;
     align-self: center;
     padding-top: 40px;
+    z-index: 100;
 }
 
 .main-form-container .main-header {
