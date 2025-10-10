@@ -29,6 +29,8 @@
 @media (max-width: 768px) {
     .main-header-container {
         justify-content: space-between;
+        background-color: transparent;
+        box-shadow: unset;
     }
 
     .main-header-container .main-logo {

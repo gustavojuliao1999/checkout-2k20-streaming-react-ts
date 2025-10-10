@@ -1,0 +1,125 @@
+.resume-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FFFFFF;
+    width: 80vw;
+    align-self: center;
+    z-index: 100;
+}
+
+.confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: -webkit-fill-available;
+    height: 100vh;
+    background-image: url("../img/confetti.png");
+    background-position: center;
+}
+
+.resume-container .header {
+    color: #FFFFFF;
+    text-align: center;
+    font-family: "stolzl-medium";
+    font-size: 34px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.resume-container .plan-card {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    background-color: #141414;
+    width: 100%;
+    align-items: center;
+    padding: 30px;
+    border-radius: 36px;
+    border: 5px solid #6200EA;
+}
+
+.resume-container .plan-card .top {
+    display: flex;
+    width: -webkit-fill-available;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.resume-container .plan-card .top b {
+    color: #FFF;
+    font-family: "stolzl-medium";
+    font-size: 30px;
+}
+
+.resume-container .plan-card .top .benefits-wrapper .benefit-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #628199;
+    font-family: "stolzl-medium";
+    font-size: 12px;
+}
+
+.resume-container .plan-card .top .benefits-wrapper .benefit-row span {
+    color: #FFFFFF;
+}
+
+.resume-container .plan-card .total {
+    color: #FFF;
+    font-family: "stolzl-medium";
+    font-size: 20px;
+}
+
+.resume-container a {
+    border-radius: 12px;
+    background: linear-gradient(96deg, #031449 14.12%, #6200EA 121.77%);
+    padding: 20px 120px;
+    font-family: "stolzl-regular";
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    color: #FFFFFF;
+    width: fit-content;
+    align-self: center;
+    transition: ease-in-out .3s all;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.resume-container a:hover {
+    background: unset;
+    background-color: transparent;
+    cursor: pointer;
+    box-shadow: 0 9px 34.8px 0 #6200EA;
+}
+
+@media (max-width: 550px) {
+    .resume-container .plan-card .top {
+        flex-direction: column;
+    }
+
+    .resume-container .plan-card .top .separator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .resume-container .plan-card .top b {
+        font-size: 20px;
+    }
+
+    .resume-container .plan-card .top .benefits-wrapper .benefit-row {
+        font-size: 9px;
+    }
+
+    .resume-container a {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .confetti {
+        height: 80vh;
+        width: 100%;
+    }
+}

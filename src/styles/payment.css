@@ -245,6 +245,78 @@
     align-items: center;
 }
 
+.pix-payment-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    width: -webkit-fill-available;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #d9d9d99c;
+}
+
+.pix-payment-container .pix-payment-wrapper {
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 40px;
+    background: #141414;
+    padding: 35px;
+}
+
+.pix-payment-container .pix-payment-wrapper img {
+    width: 170px;
+    margin: 20px;
+    box-shadow: 0 9px 34.8px 0 #6200EA;
+}
+
+.pix-payment-container .pix-payment-wrapper b.title {
+    font-family: "stolzl-medium";
+    color: #FFFFFF;
+    font-size: 25px;
+
+}
+
+.pix-payment-container .pix-payment-wrapper .payment-info {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color: #FFFFFF;
+}
+
+.pix-payment-container .pix-payment-wrapper .payment-info b {
+    font-family: "sf-medium";
+}
+
+.pix-payment-container .pix-payment-wrapper .payment-info span {    
+    font-family: "sf-regular";
+    display: block;
+    word-break: break-all;
+    white-space: normal;
+}
+
+.pix-payment-container .pix-payment-wrapper button {
+        border-radius: 12px;
+        background: linear-gradient(96deg, #031449 14.12%, #6200EA 121.77%);
+        padding: 20px 120px;
+        font-family: "stolzl-regular";
+        font-size: 20px;
+        color: #FFFFFF;
+        width: fit-content;
+        align-self: center;
+        transition: ease-in-out .3s all;
+}
+
+.pix-payment-container .pix-payment-wrapper button:hover {
+    background: unset;
+    background-color: transparent;
+    cursor: pointer;
+    box-shadow: 0 9px 34.8px 0 #6200EA;
+}
+
 @media (max-width: 550px) {
     .payment-container .payment-header {
         padding-top: 20px;
@@ -301,5 +373,14 @@
     .payment-container .continue {
         padding: 20px;
         width: 100%;    
+    }
+
+    .pix-payment-container .pix-payment-wrapper {
+        max-width: 350px;
+    }
+
+    .pix-payment-container .pix-payment-wrapper button {
+        padding: 20px;
+        width: 100%;
     }
 }
