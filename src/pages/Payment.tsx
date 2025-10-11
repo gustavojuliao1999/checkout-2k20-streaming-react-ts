@@ -84,6 +84,14 @@ const Payment = () => {
         }
     }
 
+    function handleDocIdChange(event: React.ChangeEvent<HTMLInputElement>) {
+        var formatteddocId = event.target.value;
+        formatteddocId = formatteddocId.replace(/[^\d]/g, "");
+        formatteddocId = formatteddocId.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+
+        setDocId(formatteddocId);
+    }
+
     function setPaymentData() {
         const paymentData: PaymentData = {
             docId: docId,
@@ -160,7 +168,7 @@ const Payment = () => {
                 <form className="form-container" onSubmit={e => e.preventDefault()}>
                     <div className="form-group">
                         <span>CPF</span>
-                        <input type="text" name="docId" id="docIdEl" required onFocus={() => setFlipped(false)} value={docId}/>
+                        <input type="text" name="docId" id="docIdEl" required onFocus={() => setFlipped(false)} onChange={handleDocIdChange} value={docId} maxLength={14}/>
 
                         <div className="checkbox">
                             <input type="checkbox" name="sameDocId" id="sameDocId" onChange={handleSameDocId} />

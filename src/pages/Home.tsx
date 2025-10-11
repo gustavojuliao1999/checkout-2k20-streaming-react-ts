@@ -12,6 +12,7 @@ type PersonalData = {
     docId: string,
     birtDate: string,
     email: string,
+    phone: string
     name: string,
     surName: string,
     address: string,
@@ -25,6 +26,7 @@ const Home = () => {
     const [docId, setDocId] = useState("");
     const [birthDate, setBirthDate] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [name, setName] = useState("");
     const [surName, setSurName] = useState("");
     const [address, setAddress] = useState("");
@@ -50,6 +52,10 @@ const Home = () => {
 
     function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
         setEmail(event.target.value);
+    }
+
+    function handlePhoneChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setPhone(event.target.value);
     }
 
     function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -100,6 +106,7 @@ const Home = () => {
                 docId: docId,
                 birtDate: birthDate,
                 email: email,
+                phone: phone,
                 name: name,
                 surName: surName,
                 address: address,
@@ -138,10 +145,17 @@ const Home = () => {
                     <span>DATA DE NASCIMENTO</span>
                     <input type="date" name="birthDate" id="birthDateEl" required value={birthDate} onChange={handleBirthDateChange}/>
                 </div>
-                <div className="form-group">
-                    <span>E-MAIL</span>
-                    <input type="email" name="email" id="emailEl" placeholder="exemplo@2k20.com.br" required value={email} onChange={handleEmailChange}/>
-                    <small className="error-message hidden">O e-mail que você digitou não é válido</small>
+                <div className="form-group split">
+                    <div>
+                        <span>E-MAIL</span>
+                        <input type="email" name="email" id="emailEl" placeholder="exemplo@2k20.com.br" required value={email} onChange={handleEmailChange}/>
+                        <small className="error-message hidden">O e-mail que você digitou não é válido</small>
+                    </div>
+                    <div>
+                        <span>CONTATO</span>
+                        <input type="text" name="phone" id="phoneEl" placeholder="99 99999-9999" required value={phone} onChange={handlePhoneChange}/>
+                        <small className="error-message hidden">O e-mail que você digitou não é válido</small>
+                    </div>
                 </div>
                 <div className="form-group split">
                     <div>
