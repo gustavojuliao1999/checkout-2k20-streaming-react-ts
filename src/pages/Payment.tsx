@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useEffect } from "react";
+import React, { ChangeEvent, useState, useEffect, useMemo } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import globals from '../globals.js';
@@ -15,13 +15,6 @@ import qrPixImg from "../img/qr-pix.svg";
 
 import "../styles/payment.css"
 
-type PaymentData = {
-    docId: string,
-    cardNumber: string,
-    cardName: string,
-    expDate: string,
-    cvv: string
-}
 
 const Payment = () => {
     const [cardNumber, setCardNumber] = useState("");
@@ -31,6 +24,12 @@ const Payment = () => {
     const [flipped, setFlipped] = useState(false);
     const [cvv, setCvv] = useState("");
     const [docId, setDocId] = useState("");
+    const [isPixVisible, setIsPixVisible] = useState(false);
+
+    // Mock de dados do plano, já que não estava definido.
+    // O ideal é que esses dados venham de um estado global, props ou API.
+    const [planData] = useState({ price: 99.90 });
+
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -43,13 +42,8 @@ const Payment = () => {
         }
     }, [location, navigate]);
 
-    function handleCardNumberChange(event: ChangeEvent<HTMLInputElement>) {
-        setCardNumber(event.target.value);
-    }
-
-    function formatCardChunks(cardNumber = '') {
+    const cardChunks = useMemo(() => {
         const cleaned = String(cardNumber).replace(/\D/g, '');
-        
         const padded = (cleaned + '••••••••••••••••').slice(0, 16);
         return [
             padded.slice(0, 4),
@@ -57,9 +51,13 @@ const Payment = () => {
             padded.slice(8, 12),
             padded.slice(12, 16),
         ];
-    }
+    }, [cardNumber]);
 
-    const [g1, g2, g3, g4] = formatCardChunks(cardNumber);
+    const [g1, g2, g3, g4] = cardChunks;
+
+    function handleCardNumberChange(event: ChangeEvent<HTMLInputElement>) {
+        setCardNumber(event.target.value);
+    }
 
     function handleCardNameChange(event: ChangeEvent<HTMLInputElement>) {
         setCardName(event.target.value.toUpperCase());
@@ -72,13 +70,15 @@ const Payment = () => {
         // pega só os dois últimos dígitos do ano
         const formatted = `${month}/${year.slice(-2)}`;
 
-        console.log(formatted);
-
         setDisplayExpDate(formatted); // ex: "09/25"
     }
 
     function handleCvvChange(event: ChangeEvent<HTMLInputElement>) {
         setCvv(event.target.value);
+    }
+
+    function handleDocIdChange(event: ChangeEvent<HTMLInputElement>) {
+        setDocId(event.target.value);
     }
 
     async function setPaymentData() {
@@ -91,7 +91,6 @@ const Payment = () => {
 
         if (!registroToken) {
             console.error("Token (registro) não encontrado na URL.");
-            // Aqui você pode definir uma mensagem de erro no estado para exibir ao usuário
             return;
         }
 
@@ -112,16 +111,20 @@ const Payment = () => {
 
             const resposta_pix = await response.json();
 
-            if (resposta_pix.status !== 'sucess') {
+            if (resposta_pix.status !== 'success') { // Corrigido: 'sucess' para 'success'
                 throw new Error(resposta_pix.msg || "Erro ao gerar o PIX.");
             }
-            // Aqui você pode manipular a resposta do PIX, como exibir o QR Code
+
             console.log("PIX gerado:", resposta_pix.pix);
-            return {'status': 'sucess', 'pix': resposta_pix.get('pix')}
+            setIsPixVisible(true); // Mostra o container do PIX
+            return { status: 'success', pix: resposta_pix.pix }; // Corrigido: acesso ao objeto e 'sucess'
         } catch (error) {
             console.error("Erro ao gerar PIX:", error);
-            // Exibir erro para o usuário
         }
+    }
+
+    function togglePixContainer() {
+        setIsPixVisible(!isPixVisible);
     }
 
     return (
@@ -173,7 +176,7 @@ const Payment = () => {
                 <form className="form-container" onSubmit={e => e.preventDefault()}>
                     <div className="form-group">
                         <span>CPF</span>
-                        <input type="text" name="docId" id="docIdEl" required onFocus={() => setFlipped(false)} value={docId}/>
+                        <input type="text" name="docId" id="docIdEl" required onFocus={() => setFlipped(false)} value={docId} onChange={handleDocIdChange}/>
                     </div>
                     <div className="form-group">
                         <span>NÚMERO DO CARTÃO</span>
@@ -210,7 +213,7 @@ const Payment = () => {
                 <img src={fxLeftImg} className="fx-left-img" alt="decoration" />
             </div>
 
-            <div className="pix-payment-container hidden" id="pix-container">
+            <div className={`pix-payment-container ${!isPixVisible ? 'hidden' : ''}`} id="pix-container">
                 <div className="pix-payment-wrapper">
                     <b className="title">Pagamento via PIX</b>
 
