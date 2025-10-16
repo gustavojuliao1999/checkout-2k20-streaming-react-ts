@@ -7,9 +7,9 @@ import "../styles/header.css";
 function Header () {
     return (
         <header className="main-header-container">
-            <img src={mainLogoImg} className="main-logo" alt="logo image" />
+            <img src={mainLogoImg} className="main-logo" alt="logo" />
 
-            <a href="#">AJUDA</a>
+            <a href="/ajuda">AJUDA</a>
         </header>
     )
 }

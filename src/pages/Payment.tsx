@@ -1,5 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
-import { getCookies, setCookie, ICookieData } from "../controllers/cookies.controller"
+import React, { ChangeEvent, useState, useEffect } from "react";
+
+import { useLocation, useNavigate } from "react-router-dom";
+import globals from '../globals.js';
 
 import Header from "../components/Header";
 
@@ -28,7 +30,17 @@ const Payment = () => {
     const [flipped, setFlipped] = useState(false);
     const [cvv, setCvv] = useState("");
     const [docId, setDocId] = useState("");
-    const [sameDocId, setSameDocId] = useState(false)
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = new URLSearchParams(location.search).get("token");
+        if (!token) {
+            console.log("Token não encontrado, redirecionando para home.");
+            navigate("/");
+        }
+    }, [location, navigate]);
 
     function handleCardNumberChange(event: ChangeEvent<HTMLInputElement>) {
         setCardNumber(event.target.value);
@@ -68,42 +80,47 @@ const Payment = () => {
         setCvv(event.target.value);
     }
 
-    const personalData = JSON.parse(JSON.stringify(getCookies("personalData")));
-    console.log(personalData);
-
-    function handleSameDocId(event: React.ChangeEvent<HTMLInputElement>) {
-        setSameDocId(!event.target.checked);
-
-        console.log(sameDocId);
-
-        if (sameDocId) {
-            setDocId(personalData.docId);
-        } else {
-            setDocId("");
-        }
+    async function setPaymentData() {
+        // Lógica para enviar os dados de pagamento para a API
+        console.log("TODO: Enviar dados de pagamento para a API");
     }
 
-    function setPaymentData() {
-        const paymentData: PaymentData = {
-            docId: docId,
-            cardName: cardName,
-            cardNumber: cardNumber,
-            expDate: expDate,
-            cvv: cvv
+    async function handlePixPayment() {
+        const registroToken = new URLSearchParams(location.search).get("token");
+
+        if (!registroToken) {
+            console.error("Token (registro) não encontrado na URL.");
+            // Aqui você pode definir uma mensagem de erro no estado para exibir ao usuário
+            return;
         }
 
-        const cookieData: ICookieData = {
-            name: "paymentData",
-            value: JSON.stringify(paymentData)
-        }
-        
-        setCookie(cookieData);
+        try {
+            const response = await fetch(`${globals.apiBaseUrl}/api/streaming`, {
+                method: "POST",
+                headers: {
+                    Authorization: globals.token,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    route: "gerar_pix",
+                    data: {
+                        registro: registroToken,
+                    },
+                }),
+            });
 
-        console.log([
-            JSON.parse(JSON.stringify(getCookies("personalData"))),
-            JSON.parse(JSON.stringify(getCookies("planData"))),
-            JSON.parse(JSON.stringify(getCookies("paymentData"))),
-        ])
+            const resposta_pix = await response.json();
+
+            if (resposta_pix.status !== 'sucess') {
+                throw new Error(resposta_pix.msg || "Erro ao gerar o PIX.");
+            }
+            // Aqui você pode manipular a resposta do PIX, como exibir o QR Code
+            console.log("PIX gerado:", resposta_pix.pix);
+            return {'status': 'sucess', 'pix': resposta_pix.get('pix')}
+        } catch (error) {
+            console.error("Erro ao gerar PIX:", error);
+            // Exibir erro para o usuário
+        }
     }
 
     return (
@@ -156,11 +173,6 @@ const Payment = () => {
                     <div className="form-group">
                         <span>CPF</span>
                         <input type="text" name="docId" id="docIdEl" required onFocus={() => setFlipped(false)} value={docId}/>
-
-                        <div className="checkbox">
-                            <input type="checkbox" name="sameDocId" id="sameDocId" onChange={handleSameDocId} />
-                            <label htmlFor="sameDocId">Quero usar o mesmo CPF que já informei</label>
-                        </div>
                     </div>
                     <div className="form-group">
                         <span>NÚMERO DO CARTÃO</span>
@@ -182,7 +194,7 @@ const Payment = () => {
 
                 <div className="pix-wrapper">
                     <span>OU</span>
-                    <button>PAGAR COM PIX</button>
+                    <button onClick={handlePixPayment}>PAGAR COM PIX</button>
                 </div>
 
                 <button className="continue" onClick={setPaymentData}>Continuar</button>

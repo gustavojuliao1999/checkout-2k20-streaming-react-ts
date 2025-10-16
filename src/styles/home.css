@@ -149,3 +149,41 @@
         width: 100%;
     }
 }
+
+.main-form-container .form-group .select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.main-form-container .form-group select {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #628199;
+    color: #FFFFFF;
+    font-family: "stolzl-Bold";
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.main-form-container .form-group select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.main-form-container .form-group .select-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #FFFFFF;
+    pointer-events: none;
+}
