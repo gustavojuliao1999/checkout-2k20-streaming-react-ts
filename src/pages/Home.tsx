@@ -55,6 +55,29 @@ type PostDataPayload = {
     [key: string]: string;
 };
 
+const validateEmail = (email: string) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+};
+
+const validateCPF = (cpf: string) => {
+    cpf = cpf.replace(/[^\d]+/g, '');
+    if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false;
+    const cpfDigits = cpf.split('').map(el => +el);
+    const rest = (count: number): number => {
+        let sum = 0;
+        let rest = 0;
+        for (let i = 1; i <= count; i++) {
+            sum = sum + cpfDigits[i - 1] * (count + 2 - i);
+        }
+        rest = (sum * 10) % 11;
+        return (rest === 10 || rest === 11) ? 0 : rest;
+    };
+    if (rest(9) !== cpfDigits[9]) return false;
+    if (rest(10) !== cpfDigits[10]) return false;
+    return true;
+};
+
 
 const Home = () => {
     const [docId, setDocId] = useState("");
@@ -289,6 +312,16 @@ const Home = () => {
     async function saveInfos(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setError(""); // Limpa erros anteriores
+
+        if (!validateCPF(docId)) {
+            setError("O CPF inserido é inválido.");
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            setError("O formato do e-mail é inválido.");
+            return;
+        }
 
         // Validações
         if (password !== passwordConfirm) {
