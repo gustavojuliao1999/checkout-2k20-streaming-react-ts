@@ -4,6 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 
+import fxRightImg from "../img/fx-right.svg";
+import fxLeftImg from "../img/fx-left.svg";
+
 import "../styles/home.css";
 import globals from '../globals.js';
 
@@ -12,6 +15,7 @@ type PersonalData = {
     docId: string,
     birtDate: string,
     email: string,
+    phone: string
     name: string,
     surName: string,
     address: string,
@@ -56,6 +60,7 @@ const Home = () => {
     const [docId, setDocId] = useState("");
     const [birthDate, setBirthDate] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [name, setName] = useState("");
     const [surName, setSurName] = useState("");
     const [address, setAddress] = useState("");
@@ -97,6 +102,10 @@ const Home = () => {
 
     function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
         setEmail(event.target.value);
+    }
+
+    function handlePhoneChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setPhone(event.target.value);
     }
 
     function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -366,8 +375,6 @@ const Home = () => {
         }
     }
 
-
-
     return (
         <React.Fragment>
             <Header/>
@@ -377,17 +384,24 @@ const Home = () => {
 
                 <div className="form-group">
                     <span>CPF</span>
-                    <input type="text" name="docId" id="docIdEl" placeholder="123.456.789-00" required value={docId} onChange={handleDocIdChange} maxLength={14}/>
+                    <input type="text" name="docId" id="docIdEl" placeholder="000.000.000-00" required value={docId} onChange={handleDocIdChange} maxLength={14}/>
                     <small className="error-message hidden">O cpf deve ter 11 dígitos</small>
                 </div>
                 <div className="form-group">
                     <span>DATA DE NASCIMENTO</span>
                     <input type="text" name="birthDate" id="birthDateEl" placeholder="DD/MM/AAAA" required value={birthDate} onChange={handleBirthDateChange} maxLength={10}/>
                 </div>
-                <div className="form-group">
-                    <span>E-MAIL</span>
-                    <input type="email" name="email" id="emailEl" placeholder="exemplo@2k20.com.br" required value={email} onChange={handleEmailChange}/>
-                    <small className="error-message hidden">O e-mail que você digitou não é válido</small>
+                <div className="form-group split">
+                    <div>
+                        <span>E-MAIL</span>
+                        <input type="email" name="email" id="emailEl" placeholder="exemplo@2k20.com.br" required value={email} onChange={handleEmailChange}/>
+                        <small className="error-message hidden">O e-mail que você digitou não é válido</small>
+                    </div>
+                    <div>
+                        <span>CONTATO</span>
+                        <input type="text" name="phone" id="phoneEl" placeholder="99 99999-9999" required value={phone} onChange={handlePhoneChange}/>
+                        <small className="error-message hidden">O e-mail que você digitou não é válido</small>
+                    </div>
                 </div>
                 <div className="form-group split">
                     <div>
@@ -445,11 +459,11 @@ const Home = () => {
                 <div className="form-group split">
                     <div>
                         <span>ENDEREÇO COMPLETO</span>
-                        <input type="text" name="address" id="addressEl" placeholder="Rua A" required value={address} onChange={handleAddressChange}/>
+                        <input type="text" name="address" id="addressEl" placeholder="Digite a rua" required value={address} onChange={handleAddressChange}/>
                     </div>
                     <div>
                         <span>NÚMERO</span>
-                        <input type="text" name="addressNumber" id="addressNumberEl" placeholder="80" required value={addressNumber} onChange={handleAddressNumberChange}/>
+                        <input type="text" name="addressNumber" id="addressNumberEl" placeholder="0" required value={addressNumber} onChange={handleAddressNumberChange}/>
                     </div>
                 </div>
                
@@ -476,6 +490,9 @@ const Home = () => {
                 <span>Já tem uma conta? <a href="/login">Entre com sua conta aqui</a></span>
                 <span>Você tem um código? <a href="/validar-codigo">Valide aqui aqui</a></span>
             </div>
+
+            <img src={fxRightImg} className="fx-right-img" alt="decoration" />
+            <img src={fxLeftImg} className="fx-left-img" alt="decoration" />
         </React.Fragment>
     )
 }

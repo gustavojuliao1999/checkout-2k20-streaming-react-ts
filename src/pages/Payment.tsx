@@ -11,6 +11,7 @@ import chipImg from "../img/chip.svg";
 import backCardElements from "../img/backCardElements.svg";
 import fxRightImg from "../img/fx-right.svg";
 import fxLeftImg from "../img/fx-left.svg";
+import qrPixImg from "../img/qr-pix.svg";
 
 import "../styles/payment.css"
 
@@ -207,6 +208,35 @@ const Payment = () => {
 
                 <img src={fxRightImg} className="fx-right-img" alt="decoration" />
                 <img src={fxLeftImg} className="fx-left-img" alt="decoration" />
+            </div>
+
+            <div className="pix-payment-container hidden" id="pix-container">
+                <div className="pix-payment-wrapper">
+                    <b className="title">Pagamento via PIX</b>
+
+                    <img src={qrPixImg} alt="" />
+
+                    <div className="payment-info">
+                        <div className="info-wrapper">
+                            <b>Valor: </b>
+                            <b>{planData.price.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</b>
+                        </div>
+                        <div className="info-wrapper">
+                            <b>Descrição: </b>
+                            <b>2kPlay - Boleto #23452</b>
+                        </div>
+                        <div className="info-wrapper">
+                            <b>Instituição: </b>
+                            <b>2KPLAY LTDA</b>
+                        </div>
+                        <div className="info-wrapper">
+                            <b>Copia e cola: </b>
+                            <span>00020101021126850014br.gov.bcb.pix2563qrcodepix.bb.com.br/pix/v2/cfeb2909-2cf1-4404-b764-26f7d97f22bd520400005303986540599.905802BR59152kplay60062070503***6304AE70</span>
+                        </div>
+                    </div>
+
+                    <button onClick={togglePixContainer}>Copiar código PIX</button>
+                </div>
             </div>
         </React.Fragment>
     )
