@@ -11,7 +11,8 @@ const MyRoutes = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/plano" element={<Plans />} />
-                <Route path="/pagamento" element={<Payment />} />
+                <Route path="/Resume" element={<Payment />} />
+                <Route path="/pagamento" element={<Resume />} />
             </Routes>
         </Router>
     )

@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState, useEffect, useMemo } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import globals from '../globals.js';
 
 import Header from "../components/Header";
 
@@ -95,10 +94,10 @@ const Payment = () => {
         }
 
         try {
-            const response = await fetch(`${globals.apiBaseUrl}/api/streaming`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/streaming`, {
                 method: "POST",
                 headers: {
-                    Authorization: globals.token,
+                    Authorization: process.env.REACT_APP_TOKEN as string,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({

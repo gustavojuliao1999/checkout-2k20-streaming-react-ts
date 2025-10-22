@@ -8,7 +8,6 @@ import fxRightImg from "../img/fx-right.svg";
 import fxLeftImg from "../img/fx-left.svg";
 
 import "../styles/home.css";
-import globals from '../globals.js';
 
 
 type PersonalData = {
@@ -155,10 +154,10 @@ const Home = () => {
         setHood(event.target.value);
     }
     async function get_estados() {
-        const responseEstados = await fetch(globals.apiBaseUrl + '/api', {
+        const responseEstados = await fetch(process.env.REACT_APP_API_BASE_URL + '/api', {
             method: 'POST',
             headers: {
-                'Authorization': globals.token,
+                'Authorization': process.env.REACT_APP_TOKEN as string,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -172,10 +171,10 @@ const Home = () => {
          console.log('getCidades');
         // try {
         // Faz a requisição POST para a URL desejada
-        const response = await fetch(globals.apiBaseUrl + '/api/', {
+        const response = await fetch(process.env.REACT_APP_API_BASE_URL + '/api/', {
             method: 'POST',
             headers: {
-                'Authorization': globals.token,
+                'Authorization': process.env.REACT_APP_TOKEN as string,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -365,11 +364,11 @@ const Home = () => {
 
             try {
                 // Substitua pela URL da sua API
-                const response = await fetch(globals.apiBaseUrl+'/api/streaming', {
+                const response = await fetch(process.env.REACT_APP_API_BASE_URL+'/api/streaming', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': globals.token
+                        'Authorization': process.env.REACT_APP_TOKEN as string
                     },
                     body: JSON.stringify(postData)
                 });
