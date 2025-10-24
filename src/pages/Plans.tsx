@@ -99,7 +99,7 @@ const Plans = () => {
             const response = await fetch(`${globals.apiBaseUrl}/api/streaming`, {
                 method: "POST",
                 headers: {
-                    Authorization: globals.token,
+                    'Authorization': globals.token,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({

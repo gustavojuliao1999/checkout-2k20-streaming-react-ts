@@ -9,6 +9,8 @@ import fxLeftImg from "../img/fx-left.svg";
 
 import "../styles/home.css";
 
+import globals from '../globals.js';
+
 
 type PersonalData = {
     docId: string,
@@ -154,6 +156,7 @@ const Home = () => {
         setHood(event.target.value);
     }
     async function get_estados() {
+        console.log(process.env.REACT_APP_API_BASE_URL);
         const responseEstados = await fetch(process.env.REACT_APP_API_BASE_URL + '/api', {
             method: 'POST',
             headers: {
@@ -171,10 +174,10 @@ const Home = () => {
          console.log('getCidades');
         // try {
         // Faz a requisição POST para a URL desejada
-        const response = await fetch(process.env.REACT_APP_API_BASE_URL + '/api/', {
+        const response = await fetch(globals.apiBaseUrl + '/api/', {
             method: 'POST',
             headers: {
-                'Authorization': process.env.REACT_APP_TOKEN as string,
+                'Authorization': globals.token,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -218,7 +221,7 @@ const Home = () => {
                         }
                     }
                     if (set_state != null){
-                        const cidades = await get_cidades(selectedState);
+                        const cidades = await get_cidades(set_state);
                         setCities(cidades);
                         for (const cidade of cidades) {
                             

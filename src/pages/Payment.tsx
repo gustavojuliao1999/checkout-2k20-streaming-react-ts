@@ -14,6 +14,8 @@ import qrPixImg from "../img/qr-pix.svg";
 
 import "../styles/payment.css"
 
+import globals from '../globals.js';
+
 
 const Payment = () => {
     const [cardNumber, setCardNumber] = useState("");
@@ -63,13 +65,19 @@ const Payment = () => {
     }
 
     function handleExpDate(event: ChangeEvent<HTMLInputElement>) {
-        setExpDate(event.target.value);
-
-        const [year, month] = event.target.value.split("-");
-        // pega só os dois últimos dígitos do ano
-        const formatted = `${month}/${year.slice(-2)}`;
-
-        setDisplayExpDate(formatted); // ex: "09/25"
+        let { value } = event.target;
+        // Remove tudo que não for dígito
+        value = value.replace(/\D/g, '');
+        // Adiciona a barra depois do mês
+        if (value.length > 2) {
+            value = `${value.slice(0, 2)}/${value.slice(2, 4)}`;
+        }
+        // Limita o tamanho
+        if (value.length > 5) {
+            value = value.slice(0, 5);
+        }
+        setExpDate(value);
+        setDisplayExpDate(value);
     }
 
     function handleCvvChange(event: ChangeEvent<HTMLInputElement>) {
@@ -94,10 +102,10 @@ const Payment = () => {
         }
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/streaming`, {
+            const response = await fetch(`${globals.apiBaseUrl}/api/streaming`, {
                 method: "POST",
                 headers: {
-                    Authorization: process.env.REACT_APP_TOKEN as string,
+                    Authorization: globals.token,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
@@ -187,7 +195,7 @@ const Payment = () => {
                     </div>
                     <div className="form-group">
                         <span>VALIDADE</span>
-                        <input type="month" name="cardExpireDate" id="cardExpireDateEl" onChange={handleExpDate} value={expDate} onFocus={() => setFlipped(false)} />
+                        <input type="text" name="cardExpireDate" id="cardExpireDateEl" placeholder="MM/AA" onChange={handleExpDate} value={expDate} onFocus={() => setFlipped(false)} maxLength={5} />
                     </div>
                     <div className="form-group">
                         <span>CVV</span>
